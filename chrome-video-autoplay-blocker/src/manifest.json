@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Video Autoplay Blocker by Robert Sulkowski",
   "short_name":"Video Autoplay Blocker",
-  "version": "1.0",
+  "version": "1.2",
   "description": "Prevents from autoplay the HTML5 <video> tag.",
   "author":"Robert Sulkowski",
   "homepage_url":"http://brainusers.net/",

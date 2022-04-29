@@ -17,6 +17,7 @@ function initApp(event) {
 	
 	for (var i=0; i<DOMAIN_WHITELIST.length; i++) {
 		if (location.href.match(DOMAIN_WHITELIST[i])) {
+			debug('--- whitelist');
 			return true;
 		}
 	}
@@ -25,13 +26,27 @@ function initApp(event) {
 		debug('--- init blocker');
 		addVideoListeners(document.getElementsByTagName('video'));
 	} else {
-		if (event.target.tagName == 'VIDEO') {
+//		debug('--- tagName: '+ event.target.tagName);
+		if (typeof event.target.tagName == 'string' && event.target.tagName.toUpperCase() == 'VIDEO') {
 			debug('--- video dom node inserted');
 			addVideoListeners([event.target]);
 		}
 	}
 }
 document.addEventListener('DOMNodeInserted', initApp);
+document.addEventListener('DOMContentLoaded', function() {
+	var videos = document.getElementsByTagName('video');
+	for (var i=0; i<videos.length; i++) {
+		if (videos[i].autoplay) {
+			videos[i].pause();
+			videos[i].videoState = STATE_BLOCKED;
+			videos[i].videoAllowButton = createAllowButton(videos[i]);
+		}
+	}
+	initApp();
+});
+setTimeout(initApp, 1000);
+
 
 
 /**
@@ -45,12 +60,13 @@ function addVideoListeners(videos) {
 		var video = videos[i];
 		if (typeof video.videoBlocked == 'undefined') {
 			
-			debug('--- new node listener for '+ video.src);
+			debug('--- new node listener for '+ video.getAttribute('src'));
 			
 			video.videoState = STATE_INIT;
+			video.pause();
 			
 			video.addEventListener('playing', function(ev) {
-				debug('--- playing with state '+ this.videoState + ' --- '+ video.src);
+				debug('--- playing with state '+ this.videoState + ' --- '+ video.getAttribute('src'));
 				if (STATE_ALLOWED != this.videoState) {
 					this.videoState = STATE_BLOCKED;
 					this.pause();
@@ -134,3 +150,16 @@ function debug(msg) {
 	}
 }
 
+
+/*
+var time = "50";
+var actualCode = 'window.setTimeoutCopy = window.setTimeout; window.setTimeout = function(func,time){if(time>'+ time +'){return window.setTimeoutCopy(func,time);}}; window.setIntervalCopy = window.setInterval; window.setInterval = function(func,time){console.log(time);if(time>'+ time +'){return window.setIntervalCopy(func,time);}};';
+//actualCode = 'console.log("hej");';
+var script = document.createElement('script');
+script.textContent = actualCode;
+var elem = (document.head||document.documentElement);
+//if (elem.firstChild) elem.insertBefore(script, elem.firstChild);
+elem.appendChild(script);
+//script.parentNode.removeChild(script);
+
+*/
