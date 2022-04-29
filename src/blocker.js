@@ -1,3 +1,14 @@
+/**
+
+Please note this code is not very beatiful. But it works.
+At the time I just wanted to fix the problem with videos autoplaying.
+Today I'd write it in a better way. But I probably won't :-)
+Cheers.
+
+Robert
+
+**/
+
 var DEBUG = false;
 var DOMAIN_WHITELIST = ["youtube.com", "vimeo.com", "netflix.com", "vod.pl", "cda.pl", "hbogo.pl", "primevideo.com"];
 
