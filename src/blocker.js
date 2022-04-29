@@ -1,5 +1,5 @@
 var DEBUG = false;
-var DOMAIN_WHITELIST = ["youtube.com", "vimeo.com"];
+var DOMAIN_WHITELIST = ["youtube.com", "vimeo.com", "netflix.com", "vod.pl", "cda.pl", "hbogo.pl", "primevideo.com"];
 
 var BUTTON_TEXT = 'CLICK HERE TO PLAY THE VIDEO';
 
@@ -141,7 +141,7 @@ function cumulativeOffset(element) {
 
 /**
  * Debug handler.
- * 
+ *
  * @param msg
  */
 function debug(msg) {
@@ -150,16 +150,3 @@ function debug(msg) {
 	}
 }
 
-
-/*
-var time = "50";
-var actualCode = 'window.setTimeoutCopy = window.setTimeout; window.setTimeout = function(func,time){if(time>'+ time +'){return window.setTimeoutCopy(func,time);}}; window.setIntervalCopy = window.setInterval; window.setInterval = function(func,time){console.log(time);if(time>'+ time +'){return window.setIntervalCopy(func,time);}};';
-//actualCode = 'console.log("hej");';
-var script = document.createElement('script');
-script.textContent = actualCode;
-var elem = (document.head||document.documentElement);
-//if (elem.firstChild) elem.insertBefore(script, elem.firstChild);
-elem.appendChild(script);
-//script.parentNode.removeChild(script);
-
-*/
